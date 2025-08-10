@@ -11,7 +11,7 @@ export type NavigationMenuItem = {
 
 export const mainNavigationItems: NavigationMenuItem[] = [
   { title: 'Home', url: '/', icon: Home, chord: ['G', 'm'] },
-  { title: 'Transfers', url: '/transfers', icon: HardDriveDownload, chord: ['G', 'e'] },
+  { title: 'Transfers', url: '/transfers', icon: HardDriveDownload, chord: ['G', 't'] },
 ];
 
 export const navigationCommands: NavigationCommand[] = mainNavigationItems.map((item) => ({
