@@ -14,7 +14,7 @@ export function ThemeToggle() {
       <SidebarMenuButton
         onClick={() => setTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))}
         className="cursor-pointer"
-        tooltip={{ children: 'Toggle Theme' }}
+        tooltip="Toggle Theme"
       >
         <Moon className="block dark:hidden" />
         <Sun className="hidden dark:block" />
