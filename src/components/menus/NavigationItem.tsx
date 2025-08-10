@@ -1,19 +1,10 @@
-import { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { ChordBadge } from './ChordBadge';
-import { navigationChordMap } from '../commands/navigationCommands';
-import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
+import { NavigationMenuItem } from '../../lib/navigation/navigationItems';
+import { SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 
-export type NavigationItem = {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-};
-
-export function NavigationItem({ item }: { item: NavigationItem }) {
-  const chord = navigationChordMap[item.url];
-
+export function NavigationItem({ item }: { item: NavigationMenuItem }) {
   return (
     <SidebarMenuItem className="group/menu-item">
       <SidebarMenuButton asChild>
@@ -22,7 +13,11 @@ export function NavigationItem({ item }: { item: NavigationItem }) {
           <span>{item.title}</span>
         </Link>
       </SidebarMenuButton>
-      {chord && <ChordBadge>{chord}</ChordBadge>}
+      {item.chord && (
+        <ChordBadge wrapper={SidebarMenuBadge} className="opacity-0 group-hover/menu-item:opacity-75">
+          {item.chord}
+        </ChordBadge>
+      )}
     </SidebarMenuItem>
   );
 }

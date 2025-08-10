@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { CommandMenu } from '../components/commands/CommandMenu';
 import { CommandPaletteListener } from '../components/commands/CommandPaletteListener';
 import { AppSidebar } from '../components/menus/AppSidebar';
+import { ChordBadge } from '../components/menus/ChordBadge';
 import { SidebarProvider, SidebarTrigger } from '../components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
 
@@ -39,16 +40,24 @@ export default async function RootLayout({
       <body className={cn(nunito.variable, 'antialiased min-h-screen w-full')}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Toaster richColors />
-          <CommandMenu />
-          <CommandPaletteListener />
           <SidebarProvider defaultOpen={defaultOpen}>
+            <CommandPaletteListener />
+            <CommandMenu />
             <AppSidebar />
             <Tooltip>
               <TooltipTrigger asChild>
                 <SidebarTrigger className="cursor-pointer" />
               </TooltipTrigger>
               <TooltipContent>
-                <span>Shortcut: Command + B</span>
+                <span className="flex items-center gap-1">
+                  <span className="rounded-sm border border-neutral-700 dark:border-neutral-200 w-5 text-center">
+                    G
+                  </span>
+                  <span> then </span>
+                  <span className="rounded-sm border border-neutral-700 dark:border-neutral-200 w-5 text-center">
+                    b
+                  </span>
+                </span>
               </TooltipContent>
             </Tooltip>
             {children}

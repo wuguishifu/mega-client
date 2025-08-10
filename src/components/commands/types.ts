@@ -6,7 +6,7 @@ type NavigationTarget = {
   url: string;
 };
 
-export type Chord = [string] | [string, string];
+export type Chord = [string, string];
 
 export type ActionCommand = {
   chord: Chord;

@@ -24,9 +24,9 @@ const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 type SidebarContextProps = {
   state: 'expanded' | 'collapsed';
   open: boolean;
-  setOpen: (open: boolean) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openMobile: boolean;
-  setOpenMobile: (open: boolean) => void;
+  setOpenMobile: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
   toggleSidebar: () => void;
 };

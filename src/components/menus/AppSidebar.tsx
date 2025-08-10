@@ -1,7 +1,6 @@
-import { HardDriveDownload, Home } from 'lucide-react';
-
 import { NavigationItem } from './NavigationItem';
 import { ThemeToggle } from './ThemeToggle';
+import { mainNavigationItems } from '../../lib/navigation/navigationItems';
 import {
   Sidebar,
   SidebarContent,
@@ -11,11 +10,6 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from '../ui/sidebar';
-
-const mainNavigationItems: NavigationItem[] = [
-  { title: 'Home', url: '/', icon: Home },
-  { title: 'Transfers', url: '/transfers', icon: HardDriveDownload },
-];
 
 export function AppSidebar() {
   return (

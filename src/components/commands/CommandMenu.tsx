@@ -1,15 +1,18 @@
 'use client';
 
 import { Moon, Sun } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { mainNavigationItems } from '../../lib/navigation/navigationItems';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '../ui/command';
 
 export function CommandMenu() {
   const { setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const shiftDown = useRef(0);
+  const router = useRouter();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -52,8 +55,17 @@ export function CommandMenu() {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
-          <CommandItem className="cursor-pointer">Home</CommandItem>
-          <CommandItem className="cursor-pointer">Transfers</CommandItem>
+          {mainNavigationItems.map((item) => (
+            <CommandItem
+              className="cursor-pointer"
+              key={item.title}
+              id={item.url}
+              onSelect={withClose(() => router.push(item.url))}
+            >
+              <item.icon />
+              <span className="flex-1">{item.title}</span>
+            </CommandItem>
+          ))}
         </CommandGroup>
         <CommandGroup heading="Settings">
           <CommandItem

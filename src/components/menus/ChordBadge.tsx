@@ -1,21 +1,21 @@
-import { Fragment } from 'react';
+import { cn } from '../../lib/utils';
 
-import { SidebarMenuBadge } from '../ui/sidebar';
-
-export function ChordBadge({ children, wrapped = true }: { children: [string] | [string, string]; wrapped?: boolean }) {
-  if (children.length === 1) {
-    return <span className="border px-1 rounded-sm">{children[0]}</span>;
-  }
-
-  const Wrapper = wrapped ? SidebarMenuBadge : Fragment;
+export function ChordBadge({
+  children,
+  wrapper,
+  className,
+}: {
+  children: [string, string];
+  className?: string;
+  wrapper?: React.ElementType;
+}) {
+  const Wrapper = wrapper || 'div';
 
   return (
-    <Wrapper>
-      <div className="flex gap-1 items-center opacity-0 group-hover/menu-item:opacity-50">
-        <div className="border w-4 rounded-sm flex justify-center">{children[0]}</div>
-        <span>then</span>
-        <div className="border w-4 rounded-sm flex justify-center">{children[1]}</div>
-      </div>
+    <Wrapper className={cn('flex gap-1 items-center', className)}>
+      <div className="dark border border-inherit w-5 rounded-sm flex justify-center">{children[0]}</div>
+      <div>then</div>
+      <div className="dark border border-inherit w-5 rounded-sm flex justify-center">{children[1]}</div>
     </Wrapper>
   );
 }
