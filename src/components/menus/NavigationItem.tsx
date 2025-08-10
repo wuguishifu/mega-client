@@ -7,7 +7,7 @@ import { SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from '../ui/side
 export function NavigationItem({ item }: { item: NavigationMenuItem }) {
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild>
+      <SidebarMenuButton asChild tooltip={{ children: item.title }}>
         <Link href={item.url}>
           <item.icon />
           <span>{item.title}</span>
