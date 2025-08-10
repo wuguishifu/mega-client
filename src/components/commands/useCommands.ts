@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 
 import { Command } from './types';
 import { useIsMobile } from '../../hooks/use-mobile';
-import { navigationCommands } from '../../lib/navigation/navigationItems';
+import { navigationCommands } from '../../lib/navigation/menuItems';
 import { useSidebar } from '../ui/sidebar';
 
 export function useCommands() {

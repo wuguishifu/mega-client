@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 import { ChordBadge } from './ChordBadge';
-import { NavigationMenuItem } from '../../lib/navigation/navigationItems';
+import { NavigationMenuItem } from '../../lib/navigation/menuItems';
 import { SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 
 export function NavigationItem({ item }: { item: NavigationMenuItem }) {
   return (
-    <SidebarMenuItem className="group/menu-item">
+    <SidebarMenuItem>
       <SidebarMenuButton asChild>
         <Link href={item.url}>
           <item.icon />

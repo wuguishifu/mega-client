@@ -1,6 +1,6 @@
 import { NavigationItem } from './NavigationItem';
 import { ThemeToggle } from './ThemeToggle';
-import { mainNavigationItems } from '../../lib/navigation/navigationItems';
+import { mainNavigationItems } from '../../lib/navigation/menuItems';
 import {
   Sidebar,
   SidebarContent,

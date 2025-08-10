@@ -20,9 +20,9 @@ export function ThemeToggle() {
         <span className="block dark:hidden">Dark Mode</span>
         <span className="hidden dark:block">Light Mode</span>
       </SidebarMenuButton>
-      <SidebarMenuBadge>
-        <ChordBadge>{['G', 'L']}</ChordBadge>
-      </SidebarMenuBadge>
+      <ChordBadge wrapper={SidebarMenuBadge} className="opacity-0 group-hover/menu-item:opacity-75">
+        {['G', 'L']}
+      </ChordBadge>
     </SidebarMenuItem>
   );
 }
