@@ -3,7 +3,8 @@
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
+import { ChordBadge } from './ChordBadge';
+import { SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -14,11 +15,14 @@ export function ThemeToggle() {
         onClick={() => setTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))}
         className="cursor-pointer"
       >
-        <Moon className="opacity-80 block dark:hidden" size={20} />
-        <Sun className="opacity-80 hidden dark:block" size={20} />
+        <Moon className="block dark:hidden" />
+        <Sun className="hidden dark:block" />
         <span className="block dark:hidden">Dark Mode</span>
         <span className="hidden dark:block">Light Mode</span>
       </SidebarMenuButton>
+      <SidebarMenuBadge>
+        <ChordBadge>{['G', 'L']}</ChordBadge>
+      </SidebarMenuBadge>
     </SidebarMenuItem>
   );
 }

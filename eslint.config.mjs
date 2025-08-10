@@ -94,6 +94,7 @@ const eslintConfig = defineConfig([
           },
         },
       ],
+      'no-console': 'warn',
     },
   },
 ]);

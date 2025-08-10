@@ -8,8 +8,11 @@ import { Toaster } from 'sonner';
 
 import { cn } from '@/lib/utils';
 
-import { AppSidebar } from '../components/sidebar/AppSidebar';
+import { CommandMenu } from '../components/commands/CommandMenu';
+import { CommandPaletteListener } from '../components/commands/CommandPaletteListener';
+import { AppSidebar } from '../components/menus/AppSidebar';
 import { SidebarProvider, SidebarTrigger } from '../components/ui/sidebar';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -36,9 +39,18 @@ export default async function RootLayout({
       <body className={cn(nunito.variable, 'antialiased min-h-screen w-full')}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Toaster richColors />
+          <CommandMenu />
+          <CommandPaletteListener />
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
-            <SidebarTrigger />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <SidebarTrigger className="cursor-pointer" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>Shortcut: Command + B</span>
+              </TooltipContent>
+            </Tooltip>
             {children}
           </SidebarProvider>
         </ThemeProvider>
