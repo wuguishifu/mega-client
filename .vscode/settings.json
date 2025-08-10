@@ -1,0 +1,18 @@
+{
+  "eslint.useFlatConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "micropico.syncFolder": "proto/pico-prototype",
+  "editor.formatOnSave": false,
+  "cSpell.words": [
+    "rmssd"
+  ],
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "vim.handleKeys": {
+    "<C-6>": false
+  },
+  "nxConsole.generateAiAgentRules": true
+}
