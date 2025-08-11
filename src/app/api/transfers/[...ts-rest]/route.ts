@@ -51,7 +51,8 @@ const handler = createNextHandler(
               return {
                 type: match[1],
                 tag: match[2],
-                sourcePath: match[3].trim().replace(baseDownloadPath, ''),
+                // sourcePath: match[3].trim().replace(baseDownloadPath, ''),
+                sourcePath: match[3].trim(),
                 progress: {
                   percent: Number(progressParts[0].replace('%', '')),
                   total: progressParts[1],

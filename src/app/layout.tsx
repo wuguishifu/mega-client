@@ -6,14 +6,14 @@ import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'sonner';
 
+import { CommandMenu } from '@/components/commands/CommandMenu';
+import { CommandPaletteListener } from '@/components/commands/CommandPaletteListener';
+import { AppSidebar } from '@/components/menus/AppSidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
+import { ReduxProvider } from '@/state/provider';
 
-import { CommandMenu } from '../components/commands/CommandMenu';
-import { CommandPaletteListener } from '../components/commands/CommandPaletteListener';
-import { AppSidebar } from '../components/menus/AppSidebar';
-import { SidebarProvider, SidebarTrigger } from '../components/ui/sidebar';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
-import { ReduxProvider } from '../state/provider';
+import { LayoutProps } from '../lib/utils/types';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -25,11 +25,7 @@ export const metadata: Metadata = {
   description: 'Hostable client for Mega',
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: LayoutProps) {
   const cookiesStore = await cookies();
   const defaultOpen = cookiesStore.get('sidebar-open')?.value === 'true';
 
@@ -45,23 +41,7 @@ export default async function RootLayout({
               <CommandPaletteListener />
               <CommandMenu />
               <AppSidebar />
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <SidebarTrigger className="cursor-pointer" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <span className="flex items-center gap-1">
-                    <span className="rounded-sm border border-neutral-700 dark:border-neutral-200 w-5 text-center">
-                      G
-                    </span>
-                    <span> then </span>
-                    <span className="rounded-sm border border-neutral-700 dark:border-neutral-200 w-5 text-center">
-                      b
-                    </span>
-                  </span>
-                </TooltipContent>
-              </Tooltip>
-              {children}
+              <div className="overflow-x-hidden w-full">{children}</div>
             </SidebarProvider>
           </ThemeProvider>
         </ReduxProvider>

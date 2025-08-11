@@ -1,8 +1,6 @@
 import { ArrowDownToLine, ArrowUpToLine, CircleQuestionMark, DatabaseBackup, RefreshCcw } from 'lucide-react';
 
-import { Transfer } from '../../contract/types/transfers';
-
-function TransferIcon({ type }: { type: string }) {
+export function TransferIcon({ type }: { type: string }) {
   switch (type) {
     case '⇓':
       return <ArrowDownToLine />;
@@ -15,15 +13,4 @@ function TransferIcon({ type }: { type: string }) {
     default:
       return <CircleQuestionMark />;
   }
-}
-
-export function TransferItem({ item }: { item: Transfer }) {
-  // return <pre>{JSON.stringify(item, null, 2)}</pre>;
-
-  return (
-    <div className="flex">
-      <TransferIcon type={item.type} />
-      <span>Path: {item.sourcePath}</span>
-    </div>
-  );
 }
