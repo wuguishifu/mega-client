@@ -2,21 +2,18 @@ import { createNextHandler } from '@ts-rest/serverless/next';
 import { spawn } from 'child_process';
 
 import { rootRouter } from '../../../../contract/rootRouter';
-import { dummyTransfers } from '../../../../lib/dummy';
 import { exists } from '../../../../lib/utils/exists';
 import { errorHandler } from '../../../../server/errorHandler';
 
-const baseDownloadPath = process.env.DOWNLOAD_PATH || '';
+const noop = () => {
+  // empty
+};
 
 const handler = createNextHandler(
   rootRouter.api.transfers,
   {
     getTransfers: () => {
       return new Promise((resolve, reject) => {
-        if (process.env.USE_DUMMY_DATA === 'true') {
-          return resolve({ status: 200, body: { transfers: dummyTransfers } });
-        }
-
         const transfer = spawn('mega-transfers', ['--path-display-size=1000']);
         let stdout = '';
         let stderr = '';
@@ -70,6 +67,51 @@ const handler = createNextHandler(
         });
       });
     },
+    cancelTransfer: ({ params: { tag } }) => {
+      return new Promise((resolve, reject) => {
+        const transfer = spawn('mega-transfers', ['-c', tag]);
+        let stderr = '';
+        transfer.stdout.on('data', noop);
+        transfer.stderr.on('data', (data) => (stderr += data.toString()));
+        transfer.on('close', (code) => {
+          if (code !== 0) {
+            return reject(new Error(stderr || 'mega-transfers failed'));
+          }
+
+          resolve({ status: 200, body: tag });
+        });
+      });
+    },
+    pauseTransfer: ({ params: { tag } }) => {
+      return new Promise((resolve, reject) => {
+        const transfer = spawn('mega-transfers', ['-p', tag]);
+        let stderr = '';
+        transfer.stdout.on('data', noop);
+        transfer.stderr.on('data', (data) => (stderr += data.toString()));
+        transfer.on('close', (code) => {
+          if (code !== 0) {
+            return reject(new Error(stderr || 'mega-transfers failed'));
+          }
+
+          resolve({ status: 200, body: tag });
+        });
+      });
+    },
+    resumeTransfer: ({ params: { tag } }) => {
+      return new Promise((resolve, reject) => {
+        const transfer = spawn('mega-transfers', ['-r', tag]);
+        let stderr = '';
+        transfer.stdout.on('data', noop);
+        transfer.stderr.on('data', (data) => (stderr += data.toString()));
+        transfer.on('close', (code) => {
+          if (code !== 0) {
+            return reject(new Error(stderr || 'mega-transfers failed'));
+          }
+
+          resolve({ status: 200, body: tag });
+        });
+      });
+    },
   },
   {
     handlerType: 'app-router',
@@ -79,4 +121,4 @@ const handler = createNextHandler(
   },
 );
 
-export { handler as GET };
+export { handler as DELETE, handler as GET, handler as POST, handler as PUT };

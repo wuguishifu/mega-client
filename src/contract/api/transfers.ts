@@ -15,6 +15,41 @@ export const transfersRouter = c.router(
         }),
       },
     },
+    cancelTransfer: {
+      summary: 'Cancels a transfer',
+      method: 'DELETE',
+      path: '/cancel/:tag',
+      pathParams: z.object({
+        tag: z.string(),
+      }),
+      responses: {
+        200: z.string(),
+      },
+    },
+    pauseTransfer: {
+      summary: 'Pauses a transfer',
+      method: 'POST',
+      path: '/pause/:tag',
+      pathParams: z.object({
+        tag: z.string(),
+      }),
+      body: c.noBody(),
+      responses: {
+        200: z.string(),
+      },
+    },
+    resumeTransfer: {
+      summary: 'Resumes a transfer',
+      method: 'POST',
+      path: '/resume/:tag',
+      pathParams: z.object({
+        tag: z.string(),
+      }),
+      body: c.noBody(),
+      responses: {
+        200: z.string(),
+      },
+    },
   },
   { pathPrefix: '/transfers' },
 );
