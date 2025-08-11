@@ -23,6 +23,18 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@19.1.9)(react@19.1.0)(redux@5.0.1))(react@19.1.0)
+      '@ts-rest/core':
+        specifier: 3.51.0
+        version: 3.51.0(@types/node@20.19.10)(zod@3.25.76)
+      '@ts-rest/next':
+        specifier: 3.51.0
+        version: 3.51.0(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.76)
+      '@ts-rest/react-query':
+        specifier: 3.51.0
+        version: 3.51.0(@tanstack/react-query@5.84.2(react@19.1.0))(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(react@19.1.0)(zod@3.25.76)
+      '@ts-rest/serverless':
+        specifier: 3.51.0
+        version: 3.51.0(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.76)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -59,6 +71,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      zod:
+        specifier: ^3.25.76
+        version: 3.25.76
     devDependencies:
       '@eslint/compat':
         specifier: ^1.3.2
@@ -820,6 +835,64 @@ packages:
 
   '@tailwindcss/postcss@4.1.11':
     resolution: {integrity: sha512-q/EAIIpF6WpLhKEuQSEVMZNMIY8KhWoAemZ9eylNAih9jxMGAYPPWBn3I9QL/2jZ+e7OEz/tZkX5HwbBR4HohA==}
+
+  '@tanstack/query-core@5.83.1':
+    resolution: {integrity: sha512-OG69LQgT7jSp+5pPuCfzltq/+7l2xoweggjme9vlbCPa/d7D7zaqv5vN/S82SzSYZ4EDLTxNO1PWrv49RAS64Q==}
+
+  '@tanstack/react-query@5.84.2':
+    resolution: {integrity: sha512-cZadySzROlD2+o8zIfbD978p0IphuQzRWiiH3I2ugnTmz4jbjc0+TdibpwqxlzynEen8OulgAg+rzdNF37s7XQ==}
+    peerDependencies:
+      react: ^18 || ^19
+
+  '@ts-rest/core@3.51.0':
+    resolution: {integrity: sha512-v6lnWEcpZj1UgN9wb84XQ+EORP1QEtncFumoXMJjno5ZUV6vdjKze3MYcQN0C6vjBpIJPQEaI/gab2jr4/0KzQ==}
+    peerDependencies:
+      '@types/node': ^18.18.7 || >=20.8.4
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      zod:
+        optional: true
+
+  '@ts-rest/next@3.51.0':
+    resolution: {integrity: sha512-bvnd27rja+Zvi1/tUcVhLr5JxTc6fEMfWfm2JJd/p6Q+JwwzRY/dLy/XD5qm4/rHUtGmsF/tGJZfgC8dD2Mokw==}
+    peerDependencies:
+      '@ts-rest/core': ~3.51.0
+      next: ^12.0.0 || ^13.0.0 || ^14.0.0
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@ts-rest/react-query@3.51.0':
+    resolution: {integrity: sha512-pWrbyRqvcvmjvm+ORu3zE3sPFqsS6CHOq5vra/UtyLEgXrcnEA+fu/7d9tj/+BLRwe0kOWvalu2S3/d3SDxvFQ==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.0.0 || ^5.0.0
+      '@ts-rest/core': ~3.51.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@ts-rest/serverless@3.51.0':
+    resolution: {integrity: sha512-BjwmLPgnYifdDjSpSvhZk+v1P+3CiM/jpxKNUgdw8RfgnDy/+aaOPmAcSkjhBCOIu6ASChuv/sNpiuWx3YyPUw==}
+    peerDependencies:
+      '@azure/functions': ^4.0.0
+      '@ts-rest/core': ~3.51.0
+      '@types/aws-lambda': ^8.10.115
+      next: ^12.0.0 || ^13.0.0 || ^14.0.0
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      '@azure/functions':
+        optional: true
+      '@types/aws-lambda':
+        optional: true
+      next:
+        optional: true
+      zod:
+        optional: true
 
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
@@ -1773,6 +1846,9 @@ packages:
     resolution: {integrity: sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g==}
     engines: {node: '>= 0.4'}
 
+  itty-router@5.0.21:
+    resolution: {integrity: sha512-SrmsBfXtdoIkuDMTMXqCT0kYSl9OlQZLC7llHs4fE26dZlGfi0Cm4adNL7q/ygpWyoTZobZ547h5SZu/PwB+cg==}
+
   jiti@2.5.1:
     resolution: {integrity: sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==}
     hasBin: true
@@ -2498,6 +2574,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -3077,6 +3156,41 @@ snapshots:
       '@tailwindcss/oxide': 4.1.11
       postcss: 8.5.6
       tailwindcss: 4.1.11
+
+  '@tanstack/query-core@5.83.1': {}
+
+  '@tanstack/react-query@5.84.2(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.83.1
+      react: 19.1.0
+
+  '@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76)':
+    optionalDependencies:
+      '@types/node': 20.19.10
+      zod: 3.25.76
+
+  '@ts-rest/next@3.51.0(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.76)':
+    dependencies:
+      '@ts-rest/core': 3.51.0(@types/node@20.19.10)(zod@3.25.76)
+      next: 15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+    optionalDependencies:
+      zod: 3.25.76
+
+  '@ts-rest/react-query@3.51.0(@tanstack/react-query@5.84.2(react@19.1.0))(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(react@19.1.0)(zod@3.25.76)':
+    dependencies:
+      '@tanstack/react-query': 5.84.2(react@19.1.0)
+      '@ts-rest/core': 3.51.0(@types/node@20.19.10)(zod@3.25.76)
+      react: 19.1.0
+    optionalDependencies:
+      zod: 3.25.76
+
+  '@ts-rest/serverless@3.51.0(@ts-rest/core@3.51.0(@types/node@20.19.10)(zod@3.25.76))(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.76)':
+    dependencies:
+      '@ts-rest/core': 3.51.0(@types/node@20.19.10)(zod@3.25.76)
+      itty-router: 5.0.21
+    optionalDependencies:
+      next: 15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      zod: 3.25.76
 
   '@tybys/wasm-util@0.10.0':
     dependencies:
@@ -4251,6 +4365,8 @@ snapshots:
       has-symbols: 1.1.0
       set-function-name: 2.0.2
 
+  itty-router@5.0.21: {}
+
   jiti@2.5.1: {}
 
   js-tokens@4.0.0: {}
@@ -5047,3 +5163,5 @@ snapshots:
   yallist@5.0.0: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.25.76: {}

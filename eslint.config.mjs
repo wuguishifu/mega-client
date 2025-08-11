@@ -97,6 +97,12 @@ const eslintConfig = defineConfig([
       'no-console': 'warn',
     },
   },
+  {
+    files: ['**/*ApiSlice.ts'],
+    rules: {
+      '@typescript-eslint/no-invalid-void-type': 'off',
+    },
+  },
 ]);
 
 export default eslintConfig;
