@@ -18,6 +18,9 @@ type PauseTransferResponse = ClientInferResponseBody<TransfersRouter<'pauseTrans
 type ResumeTransferParams = ClientInferRequest<TransfersRouter<'resumeTransfer'>>['params'];
 type ResumeTransferResponse = ClientInferResponseBody<TransfersRouter<'resumeTransfer'>>;
 
+type QueueTransferBody = ClientInferRequest<TransfersRouter<'queueTransfer'>>['body'];
+type QueueTransferResponse = ClientInferResponseBody<TransfersRouter<'queueTransfer'>>;
+
 export const transfersApi = createApi({
   reducerPath: 'transfersApi',
   baseQuery: fetchBaseQuery({
@@ -73,7 +76,19 @@ export const transfersApi = createApi({
           throw new Error('Failed to resume transfer');
         }),
     }),
+    queueTransfer: builder.mutation<QueueTransferResponse, QueueTransferBody>({
+      invalidatesTags: ['transfers'],
+      queryFn: (body) =>
+        client.api.transfers.queueTransfer({ body }).then((response) => {
+          if (response.status === 200) {
+            return { data: response.body };
+          }
+
+          toast.error('Failed to queue transfer');
+          throw new Error('Failed to queue transfer');
+        }),
+    }),
   }),
 });
 
-export const { useGetTransfersQuery } = transfersApi;
+export const { useGetTransfersQuery, useQueueTransferMutation } = transfersApi;

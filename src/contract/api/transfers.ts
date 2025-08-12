@@ -50,6 +50,18 @@ export const transfersRouter = c.router(
         200: z.string(),
       },
     },
+    queueTransfer: {
+      summary: 'Queues a new transfer',
+      method: 'POST',
+      path: '/queue',
+      body: z.object({
+        url: z.string().url(),
+        downloadPath: z.string().optional(),
+      }),
+      responses: {
+        200: z.string(),
+      },
+    },
   },
   { pathPrefix: '/transfers' },
 );

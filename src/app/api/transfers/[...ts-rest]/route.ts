@@ -1,5 +1,6 @@
 import { createNextHandler } from '@ts-rest/serverless/next';
 import { spawn } from 'child_process';
+import path from 'path';
 
 import { rootRouter } from '../../../../contract/rootRouter';
 import { exists } from '../../../../lib/utils/exists';
@@ -48,7 +49,6 @@ const handler = createNextHandler(
               return {
                 type: match[1],
                 tag: match[2],
-                // sourcePath: match[3].trim().replace(baseDownloadPath, ''),
                 sourcePath: match[3].trim(),
                 progress: {
                   percent: Number(progressParts[0].replace('%', '')),
@@ -75,7 +75,7 @@ const handler = createNextHandler(
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
         transfer.on('close', (code) => {
           if (code !== 0) {
-            return reject(new Error(stderr || 'mega-transfers failed'));
+            return reject(new Error(stderr || 'mega-transfers failed with option -c'));
           }
 
           resolve({ status: 200, body: tag });
@@ -90,7 +90,7 @@ const handler = createNextHandler(
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
         transfer.on('close', (code) => {
           if (code !== 0) {
-            return reject(new Error(stderr || 'mega-transfers failed'));
+            return reject(new Error(stderr || 'mega-transfers failed with option -p'));
           }
 
           resolve({ status: 200, body: tag });
@@ -105,10 +105,28 @@ const handler = createNextHandler(
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
         transfer.on('close', (code) => {
           if (code !== 0) {
-            return reject(new Error(stderr || 'mega-transfers failed'));
+            return reject(new Error(stderr || 'mega-transfers failed with option -r'));
           }
 
           resolve({ status: 200, body: tag });
+        });
+      });
+    },
+    queueTransfer: ({ body: { url, downloadPath } }) => {
+      return new Promise((resolve, reject) => {
+        const baseLocation = process.env.DOWNLOAD_PATH || '.';
+        const location = path.join(baseLocation, downloadPath || '.');
+
+        const transfer = spawn('mega-get', ['-q', url, location]);
+        let stderr = '';
+        transfer.stdout.on('data', noop);
+        transfer.stderr.on('data', (data) => (stderr += data.toString()));
+        transfer.on('close', (code) => {
+          if (code !== 0) {
+            return reject(new Error(stderr || 'mega-get failed'));
+          }
+
+          resolve({ status: 200, body: url });
         });
       });
     },

@@ -3,7 +3,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 export function SidebarButton() {
   return (
-    <Tooltip>
+    <Tooltip delayDuration={500}>
       <TooltipTrigger asChild>
         <SidebarTrigger className="cursor-pointer" />
       </TooltipTrigger>
