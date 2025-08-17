@@ -27,15 +27,18 @@ export function QuickTransferPopover({ children, asChild }: { children: React.Re
 
   const handleSubmit = useCallback(
     (values: FormSchema) => {
+      if (isLoading) {
+        return;
+      }
+
       queueTransfer(values)
         .unwrap()
         .then(() => setOpen(false));
     },
-    [queueTransfer],
+    [queueTransfer, isLoading],
   );
 
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState('');
 
   const handleOpenChange = useCallback(
     (value: boolean) => {
@@ -65,7 +68,7 @@ export function QuickTransferPopover({ children, asChild }: { children: React.Re
               )}
             />
             <div className="flex justify-end">
-              <Button type="submit" size="sm">
+              <Button type="submit" size="sm" disabled={isLoading}>
                 Transfer
               </Button>
             </div>

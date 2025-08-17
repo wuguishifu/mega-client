@@ -1,14 +1,8 @@
 import { PageContent, PageHeader, PageWrapper } from '../../components/layout/PageLayout';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from '../../components/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '../../components/ui/breadcrumb';
 import { LayoutProps } from '../../lib/utils/types';
 
-export default function TransfersLayout({ children }: LayoutProps) {
+export default function HomeLayout({ children }: LayoutProps) {
   return (
     <PageWrapper>
       <PageHeader>
@@ -16,10 +10,6 @@ export default function TransfersLayout({ children }: LayoutProps) {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/transfers">Transfers</BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

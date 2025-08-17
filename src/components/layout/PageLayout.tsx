@@ -1,25 +1,19 @@
 import { LayoutProps } from '../../lib/utils/types';
 import { SidebarButton } from '../menus/SidebarButton';
 
-function Wrapper({ children }: LayoutProps) {
-  return <main className="w-full">{children}</main>;
+export function PageWrapper({ children }: LayoutProps) {
+  return <main className="w-full h-full">{children}</main>;
 }
 
-function Header({ children }: LayoutProps) {
+export function PageHeader({ children }: LayoutProps) {
   return (
-    <header className="flex items-center gap-2 px-2.5 mt-2">
+    <header className="w-full flex items-center gap-2 px-2.5 pt-2 fixed top-0 bg-background">
       <SidebarButton />
       {children}
     </header>
   );
 }
 
-function Content({ children }: LayoutProps) {
-  return <div className="mt-4 px-4">{children}</div>;
+export function PageContent({ children }: LayoutProps) {
+  return <div className="pt-12 px-4 h-full">{children}</div>;
 }
-
-export const PageLayout = {
-  Wrapper,
-  Header,
-  Content,
-};
