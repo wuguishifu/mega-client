@@ -1,4 +1,4 @@
-import { HardDriveDownload, ListStart } from 'lucide-react';
+import { Cog, HardDriveDownload, ListStart } from 'lucide-react';
 import Link from 'next/link';
 
 import { AppBreadcrumbs } from '../../components/layout/AppBreadcrumbs';
@@ -43,6 +43,20 @@ export default function Home() {
               </CardFooter>
             </Card>
           </QuickTransferPopover>
+          <Link href="/settings">
+            <Card className="hover:scale-110 transition-all duration-300 w-48">
+              <CardHeader className="flex flex-col items-center">
+                <CardTitle>Settings</CardTitle>
+                <CardDescription className="w-full text-center">Manage your server settings</CardDescription>
+              </CardHeader>
+              <CardContent className="w-full items-center flex justify-center">
+                <Cog className="size-16" strokeWidth={1} />
+              </CardContent>
+              <CardFooter className="flex justify-center">
+                <ChordBadge className="text-sm opacity-50">{['G', 's']}</ChordBadge>
+              </CardFooter>
+            </Card>
+          </Link>
         </div>
       </PageContent>
     </PageWrapper>
