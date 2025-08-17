@@ -1,4 +1,5 @@
-import { Plus } from 'lucide-react';
+import { Code, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 import { NavigationItem } from './NavigationItem';
 import { ThemeToggle } from './ThemeToggle';
@@ -14,6 +15,8 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '../ui/sidebar';
 
 export function AppSidebar() {
@@ -43,6 +46,14 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <ThemeToggle />
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="https://github.com/wuguishifu/mega-client" target="_blank">
+                <Code />
+                <span>Version 0.0.2</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
