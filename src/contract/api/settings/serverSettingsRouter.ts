@@ -24,7 +24,9 @@ export const serverSettingsRouter = c.router(
       path: '/logout',
       body: c.noBody(),
       responses: {
-        200: c.noBody(),
+        200: z.object({
+          success: z.boolean(),
+        }),
       },
     },
     whoAmI: {

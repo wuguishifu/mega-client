@@ -51,7 +51,9 @@ const handler = createNextHandler(
 
       return {
         status: 200,
-        body: undefined,
+        body: {
+          success: true,
+        },
       };
     },
     whoAmI: async () => {

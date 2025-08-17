@@ -11,6 +11,8 @@ type ServerSettingsRouter<T extends keyof typeof rootRouter.api.settings.server>
 type LogInBody = ClientInferRequest<ServerSettingsRouter<'logInMega'>>['body'];
 type LogInResponse = ClientInferResponseBody<ServerSettingsRouter<'logInMega'>>;
 
+type LogOutResponse = ClientInferResponseBody<ServerSettingsRouter<'logOutMega'>>;
+
 type WhoAmIResponse = ClientInferResponseBody<ServerSettingsRouter<'whoAmI'>>;
 
 export const serverSettingsApi = createApi({
@@ -32,12 +34,12 @@ export const serverSettingsApi = createApi({
           throw new Error('Failed to log into Mega');
         }),
     }),
-    logout: builder.mutation<void, void>({
+    logout: builder.mutation<LogOutResponse, void>({
       invalidatesTags: ['email'],
       queryFn: () =>
         client.api.settings.server.logOutMega().then((response) => {
           if (response.status === 200) {
-            return { data: undefined };
+            return { data: response.body };
           }
 
           toast.error('Failed to log out of Mega');
