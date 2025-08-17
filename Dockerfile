@@ -36,7 +36,7 @@ RUN \
   fi
 
 # Production image, copy all the files and run next
-FROM base AS runner
+FROM node:22-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -45,7 +45,17 @@ ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-RUN apk add --no-cache docker-cli
+
+# Install MEGAcmd and dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libfuse2 \
+    gpg \
+    procps \
+    fuse \
+ && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends wget \
+    && rm -rf /var/lib/apt/lists/*
+RUN wget --no-check-certificate https://mega.nz/linux/repo/Debian_12/arm64/megacmd-Debian_12_arm64.deb && apt install "$PWD/megacmd-Debian_12_arm64.deb"
 
 COPY --from=builder /app/public ./public
 
