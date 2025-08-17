@@ -1,5 +1,5 @@
 import { createNextHandler } from '@ts-rest/serverless/next';
-import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 
 import { rootRouter } from '../../../../contract/rootRouter';
@@ -10,19 +10,12 @@ const noop = () => {
   // empty
 };
 
-const spawnWithMaybeDockerExec = (command: string, args: string[]): ChildProcessWithoutNullStreams => {
-  if (process.env.DOCKER_EXEC === 'true') {
-    return spawn('docker', ['exec', 'host', command, ...args]);
-  }
-  return spawn(command, args);
-};
-
 const handler = createNextHandler(
   rootRouter.api.transfers,
   {
     getTransfers: () => {
       return new Promise((resolve, reject) => {
-        const transfer = spawnWithMaybeDockerExec('mega-exec', ['transfers', '--path-display-size=1000']);
+        const transfer = spawn('mega-exec', ['transfers', '--path-display-size=1000']);
         let stdout = '';
         let stderr = '';
         transfer.stdout.on('data', (data) => {
@@ -76,7 +69,7 @@ const handler = createNextHandler(
     },
     cancelTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawnWithMaybeDockerExec('mega-exec', ['transfers', '-c', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-c', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -91,7 +84,7 @@ const handler = createNextHandler(
     },
     pauseTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawnWithMaybeDockerExec('mega-exec', ['transfers', '-p', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-p', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -106,7 +99,7 @@ const handler = createNextHandler(
     },
     resumeTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawnWithMaybeDockerExec('mega-exec', ['transfers', '-r', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-r', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -124,7 +117,7 @@ const handler = createNextHandler(
         const baseLocation = process.env.DOWNLOAD_PATH || '.';
         const location = path.join(baseLocation, downloadPath || '.');
 
-        const transfer = spawnWithMaybeDockerExec('mega-exec', ['get', '-q', url, location]);
+        const transfer = spawn('mega-exec', ['get', '-q', url, location]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));

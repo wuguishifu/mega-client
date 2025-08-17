@@ -1,14 +1,12 @@
 services:
   mega-client:
     image: mega-client:latest
+    container_name: mega-client
+    user: 1000:1000
     ports:
       - 3000:3000
     volumes:
       - /Users/bo/Downloads:/downloads
-      - /var/run/docker.sock:/var/run/docker.sock # this is required for mega-client to access mega-cmd on the host
       - $HOME/.megaCmd:/root/.megaCmd
-      - /Applications/MEGAcmd.app/Contents/MacOS:/opt/mega-cmd/bin:ro
     environment:
       DOWNLOAD_PATH: /downloads
-      PATH: /opt/mega-cmd/bin:$PATH
-  
