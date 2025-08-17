@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
+import { PropsWithChildren } from 'react';
 import { Toaster } from 'sonner';
 
 import { CommandMenu } from '@/components/commands/CommandMenu';
@@ -12,8 +13,6 @@ import { AppSidebar } from '@/components/menus/AppSidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { ReduxProvider } from '@/state/provider';
-
-import { LayoutProps } from '../lib/utils/types';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
   description: 'Hostable client for Mega',
 };
 
-export default async function RootLayout({ children }: LayoutProps) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   const cookiesStore = await cookies();
   const defaultOpen = cookiesStore.get('sidebar-open')?.value === 'true';
 

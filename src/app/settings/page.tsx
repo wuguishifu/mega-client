@@ -1,48 +1,52 @@
-import { HardDriveDownload, ListStart } from 'lucide-react';
+import { Database, UserRound } from 'lucide-react';
 import Link from 'next/link';
 
 import { AppBreadcrumbs } from '../../components/layout/AppBreadcrumbs';
 import { PageContent, PageHeader, PageWrapper } from '../../components/layout/PageLayout';
 import { ChordBadge } from '../../components/menus/ChordBadge';
-import { QuickTransferPopover } from '../../components/transfers/QuicktransferPopover';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card';
 
-export default function Home() {
+const breadcrumbs = [
+  { url: '/', title: 'Home' },
+  { url: '/settings', title: 'Settings' },
+];
+
+export default function Settings() {
   return (
     <PageWrapper>
       <PageHeader>
-        <AppBreadcrumbs>{[{ url: '/', title: 'Home' }]}</AppBreadcrumbs>
+        <AppBreadcrumbs>{breadcrumbs}</AppBreadcrumbs>
       </PageHeader>
       <PageContent>
         <div className="flex flex-row justify-center items-center gap-4 h-full">
-          <Link href="/transfers">
+          <Link href="/settings/user">
             <Card className="hover:scale-110 transition-all duration-300 w-48">
               <CardHeader className="flex flex-col items-center">
-                <CardTitle>Transfers</CardTitle>
-                <CardDescription className="w-full text-center">Manage your file transfers</CardDescription>
+                <CardTitle>User Settings</CardTitle>
+                <CardDescription className="w-full text-center">Manage your user settings</CardDescription>
               </CardHeader>
               <CardContent className="w-full items-center flex justify-center">
-                <HardDriveDownload className="size-16" strokeWidth={1} />
+                <UserRound className="size-16" strokeWidth={1} />
               </CardContent>
               <CardFooter className="flex justify-center">
-                <ChordBadge className="text-sm opacity-50">{['G', 't']}</ChordBadge>
+                <ChordBadge className="text-sm opacity-50">{['G', 'u']}</ChordBadge>
               </CardFooter>
             </Card>
           </Link>
-          <QuickTransferPopover>
+          <Link href="/settings/server">
             <Card className="hover:scale-110 transition-all duration-300 w-48 cursor-pointer">
               <CardHeader className="flex flex-col items-center">
-                <CardTitle>Quick Transfer</CardTitle>
-                <CardDescription className="w-full text-center">Quickly queue a new file transfer</CardDescription>
+                <CardTitle>Server Settings</CardTitle>
+                <CardDescription className="w-full text-center">Manage the server settings</CardDescription>
               </CardHeader>
               <CardContent className="w-full items-center flex justify-center">
-                <ListStart className="size-16" strokeWidth={1} />
+                <Database className="size-16" strokeWidth={1} />
               </CardContent>
               <CardFooter className="flex justify-center">
-                <ChordBadge className="text-sm opacity-0">{['G', 't']}</ChordBadge>
+                <ChordBadge className="text-sm opacity-50">{['G', 'r']}</ChordBadge>
               </CardFooter>
             </Card>
-          </QuickTransferPopover>
+          </Link>
         </div>
       </PageContent>
     </PageWrapper>

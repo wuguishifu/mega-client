@@ -25,9 +25,11 @@ export function AppSidebar() {
           <SidebarGroupLabel>Transfers</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainNavigationItems.map((item) => (
-                <NavigationItem key={item.title} item={item} />
-              ))}
+              {mainNavigationItems
+                .filter((item) => !item.hideFromSidebar)
+                .map((item) => (
+                  <NavigationItem key={item.title} item={item} />
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
           <QuickTransferPopover asChild>
