@@ -11,7 +11,7 @@ const noop = () => {
 };
 
 const spawnWithMaybeDockerExec = (command: string, args: string[]): ChildProcessWithoutNullStreams => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.DOCKER_EXEC === 'true') {
     return spawn('docker', ['exec', 'host', command, ...args]);
   }
   return spawn(command, args);
