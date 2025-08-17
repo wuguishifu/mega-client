@@ -1,5 +1,6 @@
 import { AppBreadcrumbs } from '../../../components/layout/AppBreadcrumbs';
 import { PageContent, PageHeader, PageWrapper } from '../../../components/layout/PageLayout';
+import { MegaAccountSettings } from '../../../components/settings/MegaAccountSettings';
 
 const breadcrumbs = [
   { url: '/', title: 'Home' },
@@ -13,8 +14,8 @@ export default function ServerSettings() {
       <PageHeader>
         <AppBreadcrumbs>{breadcrumbs}</AppBreadcrumbs>
       </PageHeader>
-      <PageContent>
-        <></>
+      <PageContent className="flex items-center justify-center">
+        <MegaAccountSettings />
       </PageContent>
     </PageWrapper>
   );
