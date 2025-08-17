@@ -47,15 +47,20 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Install MEGAcmd and dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libfuse2 \
-    gpg \
-    procps \
-    fuse \
- && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y --no-install-recommends wget \
-    && rm -rf /var/lib/apt/lists/*
-RUN wget --no-check-certificate https://mega.nz/linux/repo/Debian_12/arm64/megacmd-Debian_12_arm64.deb && apt install "$PWD/megacmd-Debian_12_arm64.deb"
+RUN apt-get update && apt-get install -y \
+  libc6 \
+  libfuse2 \
+  libgcc-s1 \
+  libstdc++6 \
+  gpg \
+  procps \
+  fuse \
+  wget \
+  && rm -rf /var/lib/apt/lists/*
+
+# MEGAcmd installation
+RUN wget --no-check-certificate https://mega.nz/linux/repo/Debian_12/amd64/megacmd-Debian_12_amd64.deb \
+  && apt install "$PWD/megacmd-Debian_12_amd64.deb"
 
 COPY --from=builder /app/public ./public
 
