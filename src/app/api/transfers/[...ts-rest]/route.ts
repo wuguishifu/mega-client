@@ -15,7 +15,7 @@ const handler = createNextHandler(
   {
     getTransfers: () => {
       return new Promise((resolve, reject) => {
-        const transfer = spawn('mega-transfers', ['--path-display-size=1000']);
+        const transfer = spawn('mega-exec', ['transfers', '--path-display-size=1000']);
         let stdout = '';
         let stderr = '';
         transfer.stdout.on('data', (data) => {
@@ -69,7 +69,7 @@ const handler = createNextHandler(
     },
     cancelTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawn('mega-transfers', ['-c', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-c', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -84,7 +84,7 @@ const handler = createNextHandler(
     },
     pauseTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawn('mega-transfers', ['-p', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-p', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -99,7 +99,7 @@ const handler = createNextHandler(
     },
     resumeTransfer: ({ params: { tag } }) => {
       return new Promise((resolve, reject) => {
-        const transfer = spawn('mega-transfers', ['-r', tag]);
+        const transfer = spawn('mega-exec', ['transfers', '-r', tag]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
@@ -117,7 +117,7 @@ const handler = createNextHandler(
         const baseLocation = process.env.DOWNLOAD_PATH || '.';
         const location = path.join(baseLocation, downloadPath || '.');
 
-        const transfer = spawn('mega-get', ['-q', url, location]);
+        const transfer = spawn('mega-exec', ['get', '-q', url, location]);
         let stderr = '';
         transfer.stdout.on('data', noop);
         transfer.stderr.on('data', (data) => (stderr += data.toString()));
