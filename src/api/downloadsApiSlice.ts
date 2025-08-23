@@ -13,6 +13,9 @@ type ListDownloadsResponse = ClientInferResponseBody<DownloadsRouter<'listDownlo
 type RenameItemBody = ClientInferRequest<DownloadsRouter<'renameItem'>>['body'];
 type RenameItemResponse = ClientInferResponseBody<DownloadsRouter<'renameItem'>>;
 
+type DeleteItemBody = ClientInferRequest<DownloadsRouter<'deleteItem'>>['body'];
+type DeleteItemResponse = ClientInferResponseBody<DownloadsRouter<'deleteItem'>>;
+
 export const downloadsApi = createApi({
   reducerPath: 'downloadsApi',
   baseQuery: fetchBaseQuery({
@@ -55,7 +58,26 @@ export const downloadsApi = createApi({
         return [];
       },
     }),
+    deleteItem: builder.mutation<DeleteItemResponse, DeleteItemBody>({
+      queryFn: (body) =>
+        client.api.downloads.deleteItem({ body }).then((response) => {
+          if (response.status === 200) {
+            return { data: response.body };
+          }
+
+          toast.error('Failed to delete item');
+          throw new Error('Failed to delete item');
+        }),
+      invalidatesTags(result, _, arg) {
+        if (result?.deleted) {
+          const path = arg.path;
+          return [{ type: 'Download', id: path }];
+        }
+
+        return [];
+      },
+    }),
   }),
 });
 
-export const { useListDownloadsQuery, useRenameItemMutation } = downloadsApi;
+export const { useListDownloadsQuery, useRenameItemMutation, useDeleteItemMutation } = downloadsApi;

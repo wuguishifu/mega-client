@@ -56,6 +56,23 @@ const handler = createNextHandler(
         body: { renamed: true },
       });
     },
+    deleteItem: ({ body: { path: subDirectory } }) => {
+      const downloadDir = process.env.DOWNLOAD_PATH;
+      if (!downloadDir) {
+        throw new Error('DOWNLOAD_PATH is not set');
+      }
+
+      if (subDirectory.includes('..')) {
+        throw new Error('Invalid path');
+      }
+
+      fs.unlinkSync(path.join(downloadDir, subDirectory));
+
+      return Promise.resolve({
+        status: 200,
+        body: { deleted: true },
+      });
+    },
   },
   {
     handlerType: 'app-router',
@@ -65,4 +82,4 @@ const handler = createNextHandler(
   },
 );
 
-export { handler as GET, handler as POST };
+export { handler as DELETE, handler as GET, handler as POST };

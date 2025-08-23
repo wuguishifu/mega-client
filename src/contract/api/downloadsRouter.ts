@@ -30,6 +30,19 @@ export const downloadsRouter = c.router(
         }),
       },
     },
+    deleteItem: {
+      summary: 'Deletes an item',
+      method: 'DELETE',
+      path: '/delete',
+      body: z.object({
+        path: z.string(),
+      }),
+      responses: {
+        200: z.object({
+          deleted: z.boolean(),
+        }),
+      },
+    },
   },
   {
     pathPrefix: '/downloads',

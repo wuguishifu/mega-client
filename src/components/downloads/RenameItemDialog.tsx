@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -32,6 +32,15 @@ export function RenameItemDialog({
   item: Download;
   closeDropdownMenu: () => void;
 }) {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = useCallback(() => {
+    closeDropdownMenu();
+    setOpen(false);
+  }, [closeDropdownMenu]);
+
+  const handleOpenChange = useCallback((value: boolean) => (value ? setOpen(value) : handleClose()), [handleClose]);
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,20 +51,20 @@ export function RenameItemDialog({
   const [renameItem, { isLoading }] = useRenameItemMutation();
 
   const handleSubmit = useCallback(
-    (values: FormSchema) => {
+    async (values: FormSchema) => {
       if (isLoading) {
         return;
       }
 
       const newPath = item.path.substring(0, item.path.lastIndexOf('/') + 1) + values.name;
-      renameItem({ oldPath: item.path, newPath });
-      closeDropdownMenu();
+      await renameItem({ oldPath: item.path, newPath }).unwrap();
+      handleClose();
     },
-    [renameItem, isLoading, item.path, closeDropdownMenu],
+    [renameItem, isLoading, item.path, handleClose],
   );
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpenChange} open={open}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogTitle>Rename Item</DialogTitle>
@@ -78,7 +87,7 @@ export function RenameItemDialog({
               )}
             />
             <div className="flex justify-end">
-              <Button type="submit" size="sm" disabled={isLoading}>
+              <Button type="submit" size="sm" disabled={isLoading} className="cursor-pointer">
                 Rename
               </Button>
             </div>
