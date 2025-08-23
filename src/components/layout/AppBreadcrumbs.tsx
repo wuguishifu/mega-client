@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb';
@@ -15,7 +16,9 @@ export function AppBreadcrumbs({ children }: { children: Breadcrumb[] }) {
           return (
             <React.Fragment key={url}>
               <BreadcrumbItem>
-                <BreadcrumbLink href={url}>{title}</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link href={url}>{title}</Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
               {i < items.length - 1 && <BreadcrumbSeparator />}
             </React.Fragment>

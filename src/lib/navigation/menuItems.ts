@@ -1,4 +1,4 @@
-import { Cog, Database, HardDriveDownload, Home, LucideIcon, UserRound } from 'lucide-react';
+import { Cog, Database, Folder, HardDriveDownload, Home, LucideIcon, UserRound } from 'lucide-react';
 
 import { Chord, NavigationCommand } from '../../components/commands/types';
 
@@ -8,6 +8,7 @@ export type NavigationMenuItem = {
   icon: LucideIcon;
   chord: Chord;
   hideFromSidebar?: boolean;
+  section: 'general' | 'transfers';
 };
 
 export const mainNavigationItems: NavigationMenuItem[] = [
@@ -16,18 +17,28 @@ export const mainNavigationItems: NavigationMenuItem[] = [
     url: '/',
     icon: Home,
     chord: ['G', 'm'],
+    section: 'general',
   },
   {
     title: 'Transfers',
     url: '/transfers',
     icon: HardDriveDownload,
     chord: ['G', 't'],
+    section: 'transfers',
+  },
+  {
+    title: 'Downloads',
+    url: '/downloads',
+    icon: Folder,
+    chord: ['G', 'd'],
+    section: 'transfers',
   },
   {
     title: 'Settings',
     url: '/settings',
     icon: Cog,
     chord: ['G', 's'],
+    section: 'general',
   },
   {
     title: 'User Settings',
@@ -35,6 +46,7 @@ export const mainNavigationItems: NavigationMenuItem[] = [
     icon: UserRound,
     chord: ['G', 'u'],
     hideFromSidebar: true,
+    section: 'general',
   },
   {
     title: 'Server Settings',
@@ -42,6 +54,7 @@ export const mainNavigationItems: NavigationMenuItem[] = [
     icon: Database,
     chord: ['G', 'r'],
     hideFromSidebar: true,
+    section: 'general',
   },
 ];
 

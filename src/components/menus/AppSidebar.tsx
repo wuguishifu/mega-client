@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { NavigationItem } from './NavigationItem';
 import { ThemeToggle } from './ThemeToggle';
-import { mainNavigationItems } from '../../lib/navigation/menuItems';
+import { mainNavigationItems, NavigationMenuItem } from '../../lib/navigation/menuItems';
 import { QuickTransferPopover } from '../transfers/QuicktransferPopover';
 import {
   Sidebar,
@@ -20,19 +20,53 @@ import {
 } from '../ui/sidebar';
 
 export function AppSidebar() {
+  const { generalNavigationItems, transfersNavigationItems } = mainNavigationItems.reduce<{
+    generalNavigationItems: NavigationMenuItem[];
+    transfersNavigationItems: NavigationMenuItem[];
+  }>(
+    (acc, item) => {
+      if (item.hideFromSidebar) {
+        return acc;
+      }
+
+      switch (item.section) {
+        case 'general':
+          acc.generalNavigationItems.push(item);
+          break;
+        case 'transfers':
+          acc.transfersNavigationItems.push(item);
+          break;
+      }
+
+      return acc;
+    },
+    {
+      generalNavigationItems: [],
+      transfersNavigationItems: [],
+    },
+  );
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader />
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>General</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {generalNavigationItems.map((item) => (
+                <NavigationItem key={item.title} item={item} />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
           <SidebarGroupLabel>Transfers</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainNavigationItems
-                .filter((item) => !item.hideFromSidebar)
-                .map((item) => (
-                  <NavigationItem key={item.title} item={item} />
-                ))}
+              {transfersNavigationItems.map((item) => (
+                <NavigationItem key={item.title} item={item} />
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
           <QuickTransferPopover asChild>
