@@ -16,8 +16,18 @@ export function DownloadsList({ path }: { path?: string }) {
     return <div>Loading...</div>;
   }
 
-  if (!data) {
-    return <div>No downloads.</div>;
+  if (!data?.length) {
+    return (
+      <>
+        <div className="flex flex-row items-center">
+          <Label className="cursor-pointer">
+            <Checkbox onCheckedChange={(state) => setShowHidden(!!state)} checked={showHidden} />
+            <span>Show Hidden</span>
+          </Label>
+        </div>
+        <h2 className="my-4 text-xl font-bold">No items.</h2>
+      </>
+    );
   }
 
   const { folders, files } = data.reduce<{

@@ -16,6 +16,20 @@ export const downloadsRouter = c.router(
         200: z.array(Download),
       },
     },
+    renameItem: {
+      summary: 'Renames an item',
+      method: 'POST',
+      path: '/rename',
+      body: z.object({
+        oldPath: z.string(),
+        newPath: z.string(),
+      }),
+      responses: {
+        200: z.object({
+          renamed: z.boolean(),
+        }),
+      },
+    },
   },
   {
     pathPrefix: '/downloads',

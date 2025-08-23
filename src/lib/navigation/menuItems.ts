@@ -28,7 +28,7 @@ export const mainNavigationItems: NavigationMenuItem[] = [
   },
   {
     title: 'Downloads',
-    url: '/downloads',
+    url: '/downloads?path=.',
     icon: Folder,
     chord: ['G', 'd'],
     section: 'transfers',

@@ -10,13 +10,18 @@ type DownloadsRouter<T extends keyof typeof rootRouter.api.downloads> = (typeof 
 type ListDownloadsQuery = ClientInferRequest<DownloadsRouter<'listDownloads'>>['query'];
 type ListDownloadsResponse = ClientInferResponseBody<DownloadsRouter<'listDownloads'>>;
 
+type RenameItemBody = ClientInferRequest<DownloadsRouter<'renameItem'>>['body'];
+type RenameItemResponse = ClientInferResponseBody<DownloadsRouter<'renameItem'>>;
+
 export const downloadsApi = createApi({
   reducerPath: 'downloadsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'use client directly',
   }),
+  tagTypes: ['Download'],
   endpoints: (builder) => ({
     listDownloads: builder.query<ListDownloadsResponse, ListDownloadsQuery>({
+      keepUnusedDataFor: 60,
       queryFn: (query) =>
         client.api.downloads.listDownloads({ query }).then((response) => {
           if (response.status === 200) {
@@ -26,8 +31,31 @@ export const downloadsApi = createApi({
           toast.error('Failed to list downloads');
           throw new Error('Failed to list downloads');
         }),
+      providesTags: (_, __, arg) => [
+        { type: 'Download', id: arg.path || '/' },
+        { type: 'Download', id: 'LIST' },
+      ],
+    }),
+    renameItem: builder.mutation<RenameItemResponse, RenameItemBody>({
+      queryFn: (body) =>
+        client.api.downloads.renameItem({ body }).then((response) => {
+          if (response.status === 200) {
+            return { data: response.body };
+          }
+
+          toast.error('Failed to rename item');
+          throw new Error('Failed to rename item');
+        }),
+      invalidatesTags(result, _, arg) {
+        if (result?.renamed) {
+          const path = arg.oldPath.substring(0, arg.oldPath.lastIndexOf('/')) || '/';
+          return [{ type: 'Download', id: path }];
+        }
+
+        return [];
+      },
     }),
   }),
 });
 
-export const { useListDownloadsQuery } = downloadsApi;
+export const { useListDownloadsQuery, useRenameItemMutation } = downloadsApi;

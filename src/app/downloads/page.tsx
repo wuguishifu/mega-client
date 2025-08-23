@@ -6,7 +6,7 @@ import { PageContent, PageHeader, PageWrapper } from '../../components/layout/Pa
 
 const defaultBreadcrumbs = [
   { url: '/', title: 'Home' },
-  { url: '/downloads', title: 'Downloads' },
+  { url: '/downloads?path=.', title: 'Downloads' },
 ];
 
 export default async function Downloads({ searchParams }: { searchParams: Promise<{ path?: string }> }) {

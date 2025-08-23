@@ -43,7 +43,7 @@ export default function Home() {
               </CardFooter>
             </Card>
           </QuickTransferPopover>
-          <Link href="/downloads">
+          <Link href="/downloads?path=.">
             <Card className="hover:scale-110 transition-all duration-300 w-48">
               <CardHeader className="flex flex-col items-center">
                 <CardTitle>Downloads</CardTitle>
