@@ -84,7 +84,7 @@ export function AppSidebar() {
             <SidebarMenuButton asChild>
               <Link href="https://github.com/wuguishifu/mega-client" target="_blank">
                 <Code />
-                <span>Version 0.0.2</span>
+                <span>Version 0.0.3</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
