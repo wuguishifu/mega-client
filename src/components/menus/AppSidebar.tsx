@@ -1,4 +1,5 @@
-import { Code, Plus } from 'lucide-react';
+import { SignOutButton } from '@clerk/nextjs';
+import { Code, LogOut, Plus } from 'lucide-react';
 import Link from 'next/link';
 
 import { NavigationItem } from './NavigationItem';
@@ -81,10 +82,20 @@ export function AppSidebar() {
         <SidebarMenu>
           <ThemeToggle />
           <SidebarMenuItem>
+            <SidebarMenuButton asChild className="cursor-pointer">
+              <SignOutButton>
+                <div className="flex">
+                  <LogOut />
+                  <span>Sign Out</span>
+                </div>
+              </SignOutButton>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="https://github.com/wuguishifu/mega-client" target="_blank">
                 <Code />
-                <span>Version 0.0.3</span>
+                <span>Version 0.0.4</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

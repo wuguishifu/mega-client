@@ -1,5 +1,7 @@
 import './globals.css';
 
+import { ClerkProvider, SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { LogIn } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import { cookies } from 'next/headers';
@@ -13,6 +15,8 @@ import { AppSidebar } from '@/components/menus/AppSidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { ReduxProvider } from '@/state/provider';
+
+import { Button } from '../components/ui/button';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -29,22 +33,36 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const defaultOpen = cookiesStore.get('sidebar-open')?.value === 'true';
 
   return (
-    // Need to use `suppressHydrationWarning` to avoid hydration errors with the ThemeProvider
-    // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn(nunito.variable, 'antialiased min-h-screen w-full')}>
-        <ReduxProvider>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={cn(nunito.variable, 'antialiased min-h-screen w-full')}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Toaster richColors />
-            <SidebarProvider defaultOpen={defaultOpen}>
-              <CommandPaletteListener />
-              <CommandMenu />
-              <AppSidebar />
-              <div className="overflow-x-hidden w-full">{children}</div>
-            </SidebarProvider>
+            <SignedOut>
+              <div className="w-full h-screen flex items-center justify-center">
+                <Button asChild className="cursor-pointer w-40">
+                  <SignInButton>
+                    <div>
+                      <LogIn />
+                      <span>Sign In</span>
+                    </div>
+                  </SignInButton>
+                </Button>
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <SidebarProvider defaultOpen={defaultOpen}>
+                <ReduxProvider>
+                  <CommandPaletteListener />
+                  <CommandMenu />
+                  <AppSidebar />
+                  <div className="overflow-x-hidden w-full">{children}</div>
+                </ReduxProvider>
+              </SidebarProvider>
+            </SignedIn>
           </ThemeProvider>
-        </ReduxProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
