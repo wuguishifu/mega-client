@@ -53,7 +53,7 @@ export default function Home() {
                 <Folder className="size-16" strokeWidth={1} />
               </CardContent>
               <CardFooter className="flex justify-center">
-                <ChordBadge className="text-sm opacity-50">{['G', 'f']}</ChordBadge>
+                <ChordBadge className="text-sm opacity-50">{['G', 'd']}</ChordBadge>
               </CardFooter>
             </Card>
           </Link>
