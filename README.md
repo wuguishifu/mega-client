@@ -8,4 +8,4 @@ This is a hostable client application for mega. The idea is to host this on your
 - [*] Version number
 - [ ] Better CI/CD so I don't have to manually make tags locally
 - [ ] Bulk actions
-- [*] Authentication layer with Clerk
+- [ ] Optional authentication layer
