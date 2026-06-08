@@ -4,8 +4,8 @@ This is a hostable client application for mega. The idea is to host this on your
 
 ## Todo
 
-- [*] Log in/out so you're not limited to 5 gigs every 6 hours
-- [*] Version number
+- [x] Log in/out so you're not limited to 5 gigs every 6 hours
+- [x] Version number
 - [ ] Better CI/CD so I don't have to manually make tags locally
 - [ ] Bulk actions
 - [ ] Optional authentication layer
