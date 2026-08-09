@@ -12,13 +12,12 @@ on:
         type: string
         default: '0.0.0'
 
-permissions:
-  packages: write
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Checkout code
