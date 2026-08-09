@@ -67,5 +67,12 @@
     "tw-animate-css": "^1.3.6",
     "typescript": "^5",
     "typescript-eslint": "^8.39.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }
